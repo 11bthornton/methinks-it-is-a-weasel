@@ -7,14 +7,14 @@ use rand::{
 
 use std::env;
 
-const TARGET : &[u8] = "Good night Sena, I got it working! :)".as_bytes();
+const TARGET : &[u8] = "methinks it is a weasel".as_bytes();
 
 #[derive(Debug)]
 pub struct Individual {
-	chars: [u8; 38]
+	chars: [u8; 23]
 }
 
-fn demo<T>(v: Vec<T>) -> [T; 38] where T: Copy {
+fn demo<T>(v: Vec<T>) -> [T; 23] where T: Copy {
     let slice = v.as_slice();
     let array: [T; 38] = match slice.try_into() {
         Ok(ba) => ba,
@@ -61,7 +61,7 @@ impl Individual {
 
 		let mut chars : [u8; 38] = [0; 38];
 
-		for i in 0..37 {
+		for i in 0..22 {
 
 			let flag : usize = rng.gen_range(1..10000);
 
@@ -82,9 +82,9 @@ impl Individual {
 	}
 
 	pub fn crossover(parent_1: &Self, parent_2: &Self) -> Individual {
-		let mut chars : [u8; 38] = [0; 38];
+		let mut chars : [u8; 23] = [0; 23];
 
-		for i in 0..37 {
+		for i in 0..22 {
 			if rand::random() {
 				chars[i] = parent_1.chars[i];
 			} else {
@@ -104,7 +104,7 @@ fn hill_climb_test() {
 
 	let mut count = 0;
 
-	while individual.fitness() < 37 {
+	while individual.fitness() < 22 {
 		let mutated = individual.mutate(0.03);
 
 		if mutated.fitness() > individual.fitness() {
@@ -134,7 +134,7 @@ fn main() {
 
 	let mut rng = rand::thread_rng();
 
-	while fitness < 37 {
+	while fitness < 22 {
 
 		let pop_a : &Individual = population.choose(&mut rand::thread_rng())
 			.unwrap();
